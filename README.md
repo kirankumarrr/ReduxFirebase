@@ -1,2 +1,0 @@
-# ReduxFirebase
-Created with CodeSandbox
