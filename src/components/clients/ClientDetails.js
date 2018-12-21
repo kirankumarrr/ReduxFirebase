@@ -7,19 +7,18 @@ import PropTypes from "prop-types";
 import Spinner from "../layouts/Spinner";
 
 class ClientDetails extends Component {
-    
-    render() {
-        const {client} = this.props;
-        if(client)
-        {
-            return (
-                <div>
-                    <h1>{client.firstName}</h1>
-                </div>
-            );
-        }
-        
+  render() {
+    const { client } = this.props;
+    if (client) {
+      return (
+        <div>
+          <h1>{client.firstName} </h1>
+        </div>
+      );
+    } else {
+      return <Spinner />;
     }
+  }
 }
 //getting data from clients
 //Here we dont need any customized Redux Events to fetch data
@@ -30,11 +29,11 @@ class ClientDetails extends Component {
 // doc : Get Id from URL
 // Adding props : The reason is we are this because we wanted ID
 export default compose(
-    firestoreConnect(props => [
-        {collection: 'clients' , storeAs : 'client' , doc:props.match.params.id}
-    ]),
-    connect(({firestore:{ordered}}, props) => ({
-      client: ordered.client &&  ordered.client[0]
-      //ordered.client[0] this is gonna be array -- we wanted first
-    }))
-  )(ClientDetails);
+  firestoreConnect(props => [
+    { collection: "clients", storeAs: "client", doc: props.match.params.id }
+  ]),
+  connect(({ firestore: { ordered } }, props) => ({
+    client: ordered.client && ordered.client[0]
+    //ordered.client[0] this is gonna be array -- we wanted first
+  }))
+)(ClientDetails);

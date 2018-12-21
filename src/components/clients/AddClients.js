@@ -56,7 +56,7 @@ class AddClients extends Component {
         <div className="card">
           <div className="card-header">Add Client</div>
           <div className="card-body">
-            <form>
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <label htmlFor="firstName">First Name</label>
                 <input
@@ -128,4 +128,4 @@ class AddClients extends Component {
   }
 }
 
-export default AddClients;
+export default firestoreConnect()(AddClients);
