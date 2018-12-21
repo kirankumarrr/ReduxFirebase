@@ -1,4 +1,4 @@
- import React, { Component } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
@@ -19,9 +19,8 @@ class Clients extends Component {
       }, 0);
       //Check why 0 is placed over here
       return { totalOwed: totalSum };
-    }
-    else{
-     return { totalOwed: "0" }; 
+    } else {
+      return { totalOwed: "0" };
     }
   }
 
@@ -91,6 +90,7 @@ Clients.propTypes = {
 
 //getting data from clients
 //Here we dont need any customized Redux Events to fetch data
+//collection -- which is client created  a database table in Firebase
 export default compose(
   firestoreConnect([{ collection: "clients" }]),
   connect((state, props) => ({
