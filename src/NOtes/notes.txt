@@ -1,0 +1,24 @@
+npm i redux react - redux react - redux - firebase redux - firestore
+
+1) Redux: Include redux library to work
+
+2) react - redux : Library Binds react and redux together
+
+3) react - redux - firebase : Intergatre with firebase and allows to access collections and authentications
+
+4) redux - firestore : 2 types of databases: RealTime and Firestore(Since we are using this now.)
+
+5) firebase: Firebase Library
+
+
+  < img
+src = { "https://media.giphy.com/media/N256GFy1u6M6Y/giphy.gif"}
+className = "imggif"
+alt = "loading..."
+  />
+
+  Need to learn : 
+  Intercerptors
+  Observers
+  Authguard
+  Pipe
