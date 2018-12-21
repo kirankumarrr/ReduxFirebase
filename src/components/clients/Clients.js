@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
@@ -19,8 +19,9 @@ class Clients extends Component {
       }, 0);
       //Check why 0 is placed over here
       return { totalOwed: totalSum };
-    } else {
-      return { totalOwed: "0" };
+    }
+    else{
+     return { totalOwed: "0" }; 
     }
   }
 
