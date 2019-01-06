@@ -12,8 +12,76 @@ class ClientDetails extends Component {
     showBalanceUpdate: false,
     balanceUpdateAmount: ""
   };
+
+  onChange = e => {
+    // This  is good praticse
+    const { value, name } = e.target;
+    this.setState({ [name]: value });
+  };
+
+  balanceSubmit = e => {
+    e.preventDefault();
+    console.log(this.state.balanceUpdateAmount);
+    const { client, firestore } = this.props;
+    const { balanceUpdateAmount } = this.state;
+
+    const clientUpdate = {
+      balance: parseFloat(balanceUpdateAmount)
+    };
+    //Update Firestore
+    firestore.update(
+      {
+        collection: "clients",
+        doc: client.id
+      },
+      clientUpdate
+    );
+  };
+
+  //Delete Client
+
+  onDeleteClick = e => {
+    const { client, firestore, history } = this.props;
+
+    firestore
+      .delete({
+        collection: "clients",
+        doc: client.id
+      })
+      .then(() => history.push("/"));
+    // or
+    //.then(history.push("/"));
+  };
+
   render() {
     const { client } = this.props;
+    const { showBalanceUpdate, balanceUpdateAmount } = this.state;
+
+    let balanceForm = "";
+
+    if (showBalanceUpdate) {
+      balanceForm = (
+        <form onSubmit={this.balanceSubmit}>
+          <div className="input-group">
+            <input
+              type="text"
+              name="balanceUpdateAmount"
+              placeholder="Add New Balance"
+              value={balanceUpdateAmount}
+              onChange={this.onChange}
+              className="form-control"
+            />
+            <div className="input-group-append">
+              <input
+                type="submit"
+                className="btn btn-outline-dark"
+                value="Update"
+              />
+            </div>
+          </div>
+        </form>
+      );
+    }
     if (client) {
       return (
         <div>
@@ -27,7 +95,9 @@ class ClientDetails extends Component {
               <Link to={`/client/edit/${client.id}`} className="btn btn-dark">
                 Edit
               </Link>{" "}
-              <button className="btn btn-danger">Delete</button>
+              <button onClick={this.onDeleteClick} className="btn btn-danger">
+                Delete
+              </button>
             </div>
           </div>
           <hr />
@@ -69,6 +139,7 @@ class ClientDetails extends Component {
                     </small>
                     {}
                   </h3>
+                  {balanceForm}
                 </div>
               </div>
               <hr />
