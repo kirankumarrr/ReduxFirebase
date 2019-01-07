@@ -30,7 +30,6 @@ class AppNavBar extends Component {
 
   render() {
     const { isAuthenticated } = this.state;
-    console.log(isAuthenticated);
     const { auth } = this.props;
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary mb-4">

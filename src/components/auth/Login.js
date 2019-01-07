@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-
+import { notifyUser } from "../../actions/notifyActions";
 import PropTypes from "prop-types";
+import Alert from "../layouts/Alert";
 
 //Before Creating this Component i Made show details to only auth users itself
 //Here we required Firebase not Firestore
@@ -16,10 +17,12 @@ class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const { firebase } = this.props;
+    const { firebase, notifyUser } = this.props;
     const { email, password } = this.state;
 
-    firebase.login({ email, password }).catch(err => alert("Invalid User"));
+    firebase
+      .login({ email, password })
+      .catch(err => notifyUser("Invalid User", "error"));
   };
 
   onChange = e => {
@@ -27,11 +30,15 @@ class Login extends Component {
     this.setState({ [name]: value });
   };
   render() {
+    const { message, messageType } = this.props.notify;
     return (
       <div className="row">
         <div className="col-md-6 mx-auto">
           <div className="card">
             <div className="card-body">
+              {message ? (
+                <Alert message={message} messageType={messageType} />
+              ) : null}
               <h1 className="text-center pb-4 pt-3">
                 <span className="text-primary">
                   <i className="fas fa-lock"> Login</i>
@@ -79,4 +86,12 @@ Login.propTypes = {
   firebase: PropTypes.object.isRequired
 };
 
-export default firebaseConnect()(Login);
+export default compose(
+  firebaseConnect(),
+  connect(
+    (state, props) => ({
+      notify: state.notify
+    }),
+    { notifyUser }
+  )
+)(Login);
