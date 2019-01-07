@@ -9,8 +9,10 @@ import Dashboard from "./components/layouts/Dashboard";
 import AddClients from "./components/clients/AddClients";
 import EditClients from "./components/clients/EditClients";
 import ClientDetails from "./components/clients/ClientDetails";
+import Settings from "./components/Settings/Settings";
 
 import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 
 class App extends Component {
   render() {
@@ -46,6 +48,16 @@ class App extends Component {
                   exact
                   path="/login"
                   component={UserIsNotAuthenticated(Login)}
+                />
+                <Route
+                  exact
+                  path="/settings"
+                  component={UserIsAuthenticated(Settings)}
+                />
+                <Route
+                  exact
+                  path="/register"
+                  component={UserIsNotAuthenticated(Register)}
                 />
               </Switch>
             </div>

@@ -8,12 +8,18 @@ import Alert from "../layouts/Alert";
 //Before Creating this Component i Made show details to only auth users itself
 //Here we required Firebase not Firestore
 import { firebaseConnect } from "react-redux-firebase";
-class Login extends Component {
+class Register extends Component {
   state = {
     email: "",
     password: ""
   };
+  componentWillMount() {
+    const { allowRegistration } = this.props.settings;
 
+    if (!allowRegistration) {
+      this.props.history.push("/");
+    }
+  }
   onSubmit = e => {
     e.preventDefault();
 
@@ -21,14 +27,15 @@ class Login extends Component {
     const { email, password } = this.state;
 
     firebase
-      .login({ email, password })
-      .catch(err => notifyUser("Invalid User", "error"));
+      .createUser({ email, password })
+      .catch(err => notifyUser("That User is already Exist", "error"));
   };
 
   onChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
+
   render() {
     const { message, messageType } = this.props.notify;
     return (
@@ -41,7 +48,7 @@ class Login extends Component {
               ) : null}
               <h1 className="text-center pb-4 pt-3">
                 <span className="text-primary">
-                  <i className="fas fa-lock"> Login</i>
+                  <i className="fas fa-lock"> Register</i>
                 </span>
               </h1>
 
@@ -71,7 +78,7 @@ class Login extends Component {
                 <input
                   type="submit"
                   className="btn btn-primary btn-block"
-                  value="Login"
+                  value="Register"
                 />
               </form>
             </div>
@@ -82,7 +89,7 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
+Register.propTypes = {
   firebase: PropTypes.object.isRequired,
   notify: PropTypes.object.isRequired,
   notifyUser: PropTypes.func.isRequired
@@ -97,4 +104,4 @@ export default compose(
     }),
     { notifyUser }
   )
-)(Login);
+)(Register);
