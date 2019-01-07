@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "classnames": "^2.2.6",
     "firebase": "^5.5.5",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -15,8 +16,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
     "redux": "^4.0.1",
-    "redux-firestore": "^0.5.8",
-    "classnames": "^2.2.6"
+    "redux-auth-wrapper": "2.0.3",
+    "redux-firestore": "^0.5.8"
   },
   "devDependencies": {},
   "scripts": {
